@@ -1,0 +1,180 @@
+/**
+ * Paddle OCR (https://github.com/PaddlePaddle/PaddleOCR) build script (Groovy).
+ *
+ * Created by TonyJiangWJ (https://github.com/TonyJiangWJ) on Aug 7, 2023.
+ * Modified by TonyJiangWJ (https://github.com/TonyJiangWJ) as of Aug 11, 2023.
+ * Modified by SuperMonster003 as of Sep 4, 2023.
+ */
+
+apply {
+    plugin 'com.android.library'
+    plugin 'org.jetbrains.kotlin.android'
+    from '../utils.build.gradle'
+}
+
+ext {
+    projectName = "Paddle OCR"
+}
+
+def versions = Utils.newVersions(project)
+
+def versionMap = [
+        "MIN_SDK"    : versions["MIN_SDK"] as Integer,
+        "COMPILE_SDK": versions["COMPILE_SDK"] as Integer,
+        "TARGET_SDK" : versions["TARGET_SDK"] as Integer,
+        "NDK"        : versions["PADDLE_OCR/NDK"],
+        "CMAKE"      : versions["PADDLE_OCR/CMAKE"],
+        "OPENCV"     : versions["PADDLE_OCR/OPENCV"],
+]
+
+def nameMap = [
+        "PROJECT": ext["projectName"],
+        "OPENCV" : "OpenCV",
+        "NDK"    : "NDK",
+        "CMAKE"  : "Cmake",
+]
+
+def libsToDeploy = [
+        // @Hint by TonyJiangWJ (https://github.com/TonyJiangWJ) on Aug 7, 2023.
+        //  ! 下载 OpenCV 源码包 (默认为 4.2.0).
+        //  ! 和 Auto.js 中的版本 (如 4.8.0) 不匹配会产生冲突,
+        //  ! 可按需修改 version.properties 中对应内容.
+        //  ! en-US (translated by SuperMonster003 on Oct 22, 2024):
+        //  ! Download the archive for source code of OpenCV (defaults to 4.2.0).
+        //  ! Not matching the version in Auto.js (e.g., 4.8.0) will cause conflicts.
+        //  ! Adjust the corresponding content in version.properties as needed.
+        Utils.newLibDeployer(project, nameMap.OPENCV, "https://github.com/opencv/opencv/releases/download" +
+                "/${versionMap.OPENCV}/opencv-${versionMap.OPENCV}-android-sdk.zip")
+                .setSourceDir("/OpenCV-android-sdk/sdk/native/")
+                .setDestDir("/src/sdk/native/")
+]
+
+android {
+
+    namespace = "com.baidu.paddle.lite.ocr"
+
+    ndkVersion versionMap.NDK
+    compileSdk versionMap.COMPILE_SDK
+
+    defaultConfig {
+        minSdk versionMap.MIN_SDK
+        targetSdk versionMap.TARGET_SDK
+
+        externalNativeBuild {
+            cmake {
+                cppFlags(([
+                        "-std": "c++11",
+                ].collect { "$it.key=$it.value" } + [
+                        "-f": ["rtti", "exceptions"],
+                        "-W": "no-format",
+                ].collect {
+                    it.value instanceof List
+                            ? it.value.collect { opt -> (it.key + opt) }.join("\u0020")
+                            : it.key + it.value
+                }).join("\u0020"))
+
+                arguments(*[
+                        // @Hint by LZX284 (https://github.com/LZX284) on Sep 30, 2023.
+                        //  ! "ANDROID_PLATFORM" 默认为 "android-23", 这里修改为与 AutoJs6 最低 SDK 版本一致的 `versionMap.MIN_SDK`.
+                        //  ! en-US (translated by SuperMonster003 on Oct 22, 2024):
+                        //  ! "ANDROID_PLATFORM" with default value "android-23" was changed to `versionMap.MIN_SDK`
+                        //  ! to align with the min SDK version of AutoJs6.
+                        ANDROID_PLATFORM: "android-${versionMap.MIN_SDK}",
+                        ANDROID_STL     : "c++_shared",
+                        ANDROID_ARM_NEON: "TRUE",
+                ].collect {
+                    // @Hint by SuperMonster003 on Nov 12, 2023.
+                    //  ! Do not add a space (nbsp) after "-D".
+                    //  ! Reference: https://stackoverflow.com/questions/14887438/spacing-in-d-option-in-cmake
+                    //  ! zh-CN:
+                    //  ! 在 "-D" 后不要添加空格 (不间断空格).
+                    //  ! 参阅: https://stackoverflow.com/questions/14887438/spacing-in-d-option-in-cmake
+                    "-D$it.key=$it.value"
+                })
+            }
+        }
+
+        ndk {
+            // @Hint by SuperMonster003 on Jan 2, 2024.
+            //  ! Supported architectures: armv7, armv8.
+            //  ! References:
+            //  ! https://github.com/PaddlePaddle/Paddle-Lite/blob/develop/lite/tools/build_android.sh#L7
+            //  ! https://github.com/PaddlePaddle/Paddle-Lite/issues/80
+            //  ! zh-CN:
+            //  ! 支持的架构: armv7, armv8.
+            //  ! 参阅:
+            //  ! https://github.com/PaddlePaddle/Paddle-Lite/blob/develop/lite/tools/build_android.sh#L7
+            //  ! https://github.com/PaddlePaddle/Paddle-Lite/issues/80
+            // noinspection ChromeOsAbiSupport
+            abiFilters "arm64-v8a", "armeabi-v7a"
+            ldLibs "jnigraphics"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.toVersion(project.ext.javaVersion)
+        targetCompatibility = JavaVersion.toVersion(project.ext.javaVersion)
+    }
+
+    kotlinOptions {
+        jvmTarget = project.ext.javaVersion
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version versionMap.CMAKE
+        }
+    }
+
+}
+
+dependencies {
+
+    implementation fileTree(include: ["*.jar"], dir: "libs")
+
+    implementation project(path: ":libs:org.opencv-${versionMap.OPENCV}")
+
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation "androidx.preference:preference-ktx:1.2.1"
+
+}
+
+clean.doFirst {
+    delete project.layout.buildDirectory
+    ['.cxx'].forEach { delete file(it) }
+    if (gradle.ext["isCleanupPaddleOcr"] as Boolean) {
+        libsToDeploy.forEach { it.clean() }
+    } else {
+        println("The library files of ${project.ext["projectName"]} won't be cleaned up due to the configuration")
+    }
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+    if (taskGraph.allTasks.any { it.name == "clean" }) return
+
+    Utils.newFormatted("Version information for ${nameMap.PROJECT} library", [
+            "OPENCV",
+            "NDK",
+            "CMAKE",
+    ].collect { "${nameMap[it]}: ${versionMap[it]}" }).print()
+
+    def isModuleRequested = taskGraph.allTasks.any { it.project?.path == project.path }
+    if (!isModuleRequested) return
+
+    def shouldSkipDeploy = gradle.startParameter.offline || (gradle.ext.has("skipLibDeploy") && (gradle.ext["skipLibDeploy"] as Boolean))
+    if (shouldSkipDeploy) {
+        println("Skip library deployment for ${project.ext["projectName"]} due to offline/configuration")
+    } else {
+        libsToDeploy.forEach { it.deploy() }
+    }
+}

@@ -1,0 +1,8 @@
+.idea/
+
+/build/
+/app/release/
+/app/releases/
+/src/main/assets/modules/obsolete/
+
+**/*.bak.java

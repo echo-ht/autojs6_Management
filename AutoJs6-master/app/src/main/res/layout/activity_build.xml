@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:theme="@style/AppTheme.AppBarOverlay">
+
+        <org.autojs.autojs.theme.widget.ThemeColorToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ToolBarStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="6dp">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/text_file"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <LinearLayout
+                        android:id="@+id/source_path_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/text_source_file_path"
+                            app:expandedHintEnabled="false">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/source_path"
+                                android:inputType="textUri|textMultiLine"
+                                android:maxLines="2"
+                                android:lineSpacingMultiplier="1.1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/select_source"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="2dp"
+                            android:paddingBottom="6dp"
+                            android:src="@drawable/ic_folder"
+                            android:alpha="0.8"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_gravity="bottom|center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/text_output_apk_path"
+                            app:expandedHintEnabled="false">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/output_path"
+                                android:inputType="textUri|textMultiLine"
+                                android:maxLines="2"
+                                android:lineSpacingMultiplier="1.1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/select_output"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="2dp"
+                            android:paddingBottom="6dp"
+                            android:src="@drawable/ic_folder"
+                            android:alpha="0.8"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_gravity="bottom|center" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/app_config"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/text_config"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/text_app_name"
+                        app:expandedHintEnabled="false">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/app_name"
+                            android:inputType="text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                    <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                        android:id="@+id/package_name_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="@string/text_package_name_with_computing"
+                        app:expandedHintEnabled="false">
+
+                        <!-- @Hint by SuperMonster003 on Nov 18, 2024. -->
+                        <!--  ! Input limitation will be handled in Java/Kotlin class. -->
+                        <!--  ! zh-CN: 将于 Java/Kotlin 类中处理输入限制. -->
+                        <!--  # android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_." -->
+                        <org.autojs.autojs.ui.widget.PackageNameEditTextView
+                            android:id="@+id/package_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:imeOptions="actionNext" />
+
+                    </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                                android:id="@+id/version_name_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:hint="@string/text_version_name_with_computing"
+                                app:expandedHintEnabled="false">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/version_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="text"
+                                    tools:text="1.0.0" />
+
+                            </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                            <org.autojs.autojs.theme.widget.ThemeColorTextInputLayout
+                                android:id="@+id/version_code_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:hint="@string/text_version_code_with_computing"
+                                app:expandedHintEnabled="false">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/version_code"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    tools:text="1" />
+
+                            </org.autojs.autojs.theme.widget.ThemeColorTextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/app_icon"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/transparent"
+                                android:padding="8dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:src="@mipmap/ic_launcher" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/text_icon"
+                                android:textSize="12sp"
+                                android:gravity="center" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="0dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/text_abis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/text_supported_abis_short"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexbox_abis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginBottom="4dp"
+                        app:showDivider="middle"
+                        app:dividerDrawable="@drawable/round_checkbox_with_text_divider"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:alignContent="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="0dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/text_libs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/text_supported_libraries_short"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexbox_libraries"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginBottom="4dp"
+                        app:showDivider="middle"
+                        app:dividerDrawable="@drawable/round_checkbox_with_text_divider"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:alignContent="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="0dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/text_apk_sign_configs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/text_signature_configuration"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:rowCount="3">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="0"
+                            android:layout_column="0"
+                            android:text="@string/text_signature_scheme" />
+
+                        <Spinner
+                            android:id="@+id/spinner_signature_schemes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="0"
+                            android:layout_column="1"
+                            android:layout_columnWeight="1"
+                            android:paddingVertical="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="1"
+                            android:layout_column="0"
+                            android:text="@string/text_key_store" />
+
+                        <Spinner
+                            android:id="@+id/spinner_verified_key_stores"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="1"
+                            android:layout_column="1"
+                            android:layout_columnWeight="1"
+                            android:paddingVertical="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="2"
+                            android:layout_column="0"
+                            android:text="@string/text_others" />
+
+                        <TextView
+                            android:id="@+id/manage_key_store"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="2"
+                            android:layout_column="1"
+                            android:layout_columnWeight="1"
+                            android:background="?selectableItemBackground"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:text="@string/text_manage_key_store"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </GridLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="0dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/text_permissions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/text_supported_permissions_short"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <TextView
+                        android:id="@+id/quick_select_permissions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/text_quick_select_common_permissions"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexbox_permissions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginBottom="4dp"
+                        android:paddingHorizontal="16dp"
+                        app:alignContent="center"
+                        app:dividerDrawable="@drawable/round_checkbox_with_text_divider"
+                        app:flexDirection="column"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:background="@android:color/transparent" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <org.autojs.autojs.theme.widget.ThemeColorFloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_packaging"
+            android:tint="@color/toolbar_text" />
+
+    </FrameLayout>
+
+</LinearLayout>

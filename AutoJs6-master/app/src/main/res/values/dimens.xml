@@ -1,0 +1,73 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="about_item_avatar_side_length">50dp</dimen>
+    <dimen name="about_item_avatar_side_length_compat">42dp</dimen>
+    <dimen name="about_item_avatar_side_length_land">60dp</dimen>
+    <dimen name="about_item_avatar_side_length_land_compact">54dp</dimen>
+    <dimen name="content_inset">16dp</dimen>
+    <dimen name="divider_drawer_menu_group">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="floaty_window_offset">12dp</dimen>
+    <dimen name="github_avatar_border_width">1dp</dimen>
+    <dimen name="github_font_size_full_name">18sp</dimen>
+    <dimen name="github_font_size_full_name_compat">14sp</dimen>
+    <dimen name="github_font_size_nickname">15sp</dimen>
+    <dimen name="github_font_size_nickname_compat">12sp</dimen>
+    <dimen name="icon_developer_identifier_image_padding">5dp</dimen>
+    <dimen name="icon_developer_identifier_image_padding_compact">3dp</dimen>
+    <dimen name="icon_developer_identifier_image_side_length">48dp</dimen>
+    <dimen name="icon_developer_identifier_image_side_length_compact">40dp</dimen>
+    <dimen name="level_beam_view_line_offset">3dp</dimen>
+    <dimen name="level_beam_view_line_width">2dp</dimen>
+    <dimen name="level_beam_view_padding_left">2dp</dimen>
+    <dimen name="level_beam_view_padding_right">-2dp</dimen>
+    <dimen name="padding_circular_menu_normal">5dp</dimen>
+    <dimen name="padding_circular_menu_recording">8dp</dimen>
+    <dimen name="script_and_folder_list_divider_left_margin">0dp</dimen>
+    <dimen name="script_and_folder_list_divider_right_margin">0dp</dimen>
+    <dimen name="snackbar_extra_spacing_horizontal">0dp</dimen>
+    <dimen name="snackbar_min_width">48dp</dimen>
+    <dimen name="snackbar_padding_horizontal">12dp</dimen>
+    <dimen name="snackbar_padding_vertical">14dp</dimen>
+    <dimen name="snackbar_text_size">14sp</dimen>
+    <dimen name="editor_title_text_size">19sp</dimen>
+    <dimen name="editor_title_text_size_double_line_ascii">19sp</dimen>
+    <dimen name="editor_title_text_size_double_line_non_ascii">16sp</dimen>
+    <dimen name="editor_title_text_size_triple_line_ascii">13sp</dimen>
+    <dimen name="editor_title_text_size_triple_line_non_ascii">11sp</dimen>
+    <dimen name="editor_title_min_text_size_single_line">16sp</dimen>
+    <dimen name="editor_title_min_text_size_double_line">13sp</dimen>
+    <dimen name="editor_title_min_text_size_triple_line">11sp</dimen>
+    <dimen name="editor_title_text_size_step">0.5sp</dimen>
+    <dimen name="main_title_text_size">20sp</dimen>
+    <dimen name="main_title_text_size_horizontal_with_subtitle">18sp</dimen>
+    <dimen name="main_subtitle_text_size">12sp</dimen>
+    <dimen name="textSize_item_property">14sp</dimen>
+    <dimen name="first_char_view_stroke_width">2dp</dimen>
+    <dimen name="expanded_view_initial_width">280dp</dimen>
+    <dimen name="expanded_view_initial_height">518dp</dimen>
+    <dimen name="toolbar_content_inset_start_with_navigation">64dp</dimen>
+    <dimen name="dimen_25dp">25dp</dimen>
+    <integer name="snackbar_text_max_lines">2</integer>
+    <integer name="layout_node_info_view_decoration_line">2</integer>
+
+    <!-- Android Resources -->
+
+    <!-- Elevation when button is pressed -->
+    <dimen name="button_elevation_material">2dp</dimen>
+    <!-- Z translation to apply when button is pressed -->
+    <dimen name="button_pressed_z_material">4dp</dimen>
+    <!-- Dimensions for the translations of the default dialog animation. -->
+    <dimen name="popup_enter_animation_from_y_delta">20dp</dimen>
+    <dimen name="popup_exit_animation_to_y_delta">-10dp</dimen>
+    <dimen name="side_circular_menu_icon">42dp</dimen>
+
+    <!-- Material Dialogs -->
+    <dimen name="ref_md_dialog_frame_margin">24dp</dimen>
+    <dimen name="ref_md_listitem_margin_left">24dp</dimen>
+    <dimen name="ref_md_listitem_vertical_margin">12dp</dimen>
+    <dimen name="ref_md_listitem_textsize">16sp</dimen>
+    <dimen name="ref_md_listitem_height">48dp</dimen>
+    <dimen name="toolbar_menu_item_width">40dp</dimen>
+
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+    <include
+            layout="@layout/explorer_first_char_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:ellipsize="middle"
+                android:textDirection="locale"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                tools:text="@string/text_sample_name" />
+
+        <TextView
+                android:id="@+id/task_list_file_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:textDirection="locale"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="11sp"
+                tools:text="@string/text_sample_file_path" />
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/stop"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:src="@drawable/ic_close_gray600_48dp"
+            app:tint="#A9AAAB" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

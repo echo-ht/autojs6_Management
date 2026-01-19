@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="title" format="string|reference" />
+    <attr name="icon" format="reference" />
+    <attr name="drawer_item_text_color" format="color|reference" />
+    <attr name="drawer_group_text_color" format="color|reference" />
+    <attr name="itemBackgroundDark" format="color|reference" />
+
+    <declare-styleable name="MultiLevelListView">
+        <attr name="nestType">
+            <enum name="single" value="0" />
+            <enum name="multiple" value="1" />
+        </attr>
+        <attr name="alwaysExtended" format="boolean" />
+        <attr name="list" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialDialogPreference">
+        <attr name="dialogTitle" format="string" />
+        <attr name="dialogContent" format="string" />
+        <attr name="details" format="string" />
+        <attr name="neutralText" format="string" />
+        <attr name="neutralTextShort" format="string" />
+        <attr name="negativeText" format="string" />
+        <attr name="negativeColor" format="color" />
+        <attr name="positiveText" format="string" />
+        <attr name="positiveColor" format="color" />
+        <attr name="onConfirmPrompt" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialPreference">
+        <attr name="longClickPrompt" format="string" />
+        <attr name="longClickPromptMore" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialListPreference">
+        <attr name="dialogTitle" />
+        <attr name="dialogContent" />
+        <attr name="neutralText" />
+        <attr name="negativeText" />
+        <attr name="negativeColor" />
+        <attr name="positiveText" />
+        <attr name="positiveColor" />
+        <attr name="onConfirmPrompt" />
+        <attr name="itemKeys" format="reference" />
+        <attr name="itemValues" format="reference" />
+        <attr name="itemDefaultKey" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ToolbarMenuItem">
+        <attr name="text" format="string|reference" />
+        <attr name="icon" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundCheckboxWithText">
+        <attr name="text" />
+        <attr name="checked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PrefSwitch">
+        <attr name="key" format="string|reference" />
+        <!-- "defaultValue" is conflict with androidx.preference:preference-ktx:1.1.1-->
+        <attr name="defaultVal" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawerMenuItem">
+        <attr name="title" />
+        <attr name="icon" />
+        <attr name="with_switch" format="boolean" />
+        <attr name="pref_key" format="string|reference" />
+        <attr name="anti_shake" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawerMenuGroup">
+        <attr name="title" />
+    </declare-styleable>
+
+    <declare-styleable name="CircularActionMenu">
+        <attr name="cam_radius" format="dimension|reference" />
+        <attr name="cam_angle" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="Preference">
+        <attr name="message" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ConsoleView">
+        <attr name="color_debug" format="reference|color" />
+        <attr name="color_verbose" format="reference|color" />
+        <attr name="color_info" format="reference|color" />
+        <attr name="color_warn" format="reference|color" />
+        <attr name="color_error" format="reference|color" />
+        <attr name="color_assert" format="reference|color" />
+        <attr name="excludeFromNavigationBar" format="boolean" />
+    </declare-styleable>
+
+</resources>
