@@ -1,6 +1,8 @@
 # AutoJs6 管理平台（服务端 + Web）
 
 > 仓库地址：https://github.com/shiyaaini/autojs6_Management
+>
+> 哔哩哔哩（不懂可以看视频教程）：https://space.bilibili.com/519965290
 
 本项目包含两个子模块：
 - `seaver`：Node.js 服务端，提供设备管理、脚本管理、APK分发、配置管理以及管理员登录能力
