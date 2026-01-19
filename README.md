@@ -180,4 +180,22 @@ autojs6/
 ---
 
 如需提交到 GitHub，请直接将本仓库推送到：`https://github.com/shiyaaini/autojs6_Management`
+## App 构建说明
+
+- 上游 Android 应用源码位于 
+- JDK 版本验证：作者已在 Java 17 与 Java 24 环境下尝试构建，均可正常完成。
+- 基本步骤：
+  - 使用 Android Studio 打开 `AutoJs6-master`。
+  - 同步 Gradle 并根据提示安装所需 SDK/工具。
+  - 通过 Build → Make Project 或 Assemble Release 生成 APK。
+
+## 致谢
+
+- 感谢开源项目 AutoJs6：`https://github.com/SuperMonster003/AutoJs6`
+
+## 更新说明
+
+- 2026/1/19：修复打包应用 bug
+
 [![Star History Chart](https://api.star-history.com/svg?repos=shiyaaini/autojs6_Management&type=Date)](https://star-history.com/#shiyaaini/autojs6_Management&Date)
+
