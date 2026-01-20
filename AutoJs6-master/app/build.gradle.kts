@@ -547,17 +547,11 @@ android {
         }
 
         androidResources {
-            if (gradle.startParameter.taskNames.any { it.contains(Regex("^(:?$flavorNameApp:)?$buildActionAssemble")) }) {
-                ignoreAssetsPatterns.addAll(listOf(".idea", "declarations", "sample/declarations"))
-            }
-            if (gradle.startParameter.taskNames.any { it.contains(Regex("^(:?$flavorNameApp:)?$buildActionAssemble$flavorNameInrt", IGNORE_CASE)) }) {
-                // @Hint by SuperMonster003 on Oct 16, 2023.
-                //  ! Runtime assets will be copied from flavor "app"
-                //  ! while building an apk on org.autojs.autojs.ui.project.BuildActivity.
-                //  ! zh-CN:
-                //  ! 类 org.autojs.autojs.ui.project.BuildActivity 构建 APK 时,
-                //  ! 运行时资产文件 (runtime assets) 将由名为 "app" 的 Gradle flavor 作为源地址进行复制.
-                ignoreAssetsPatterns.addAll(emptyList())
+            val isAssemble = gradle.startParameter.taskNames.any { it.contains(Regex("^(:?$flavorNameApp:)?$buildActionAssemble")) }
+            if (isAssemble) {
+                ignoreAssetsPatterns.add(".idea")
+                ignoreAssetsPatterns.add("declarations")
+                ignoreAssetsPatterns.add("sample/declarations")
             }
         }
 
@@ -606,44 +600,43 @@ android {
     //  # packaging { ... }
     @Suppress("DEPRECATION")
     packagingOptions {
-        listOf(
-            "META-INF/DEPENDENCIES",
-            "META-INF/LICENSE",
-            "META-INF/LICENSE.*",
-            "META-INF/LICENSE-notice.*",
-            "META-INF/license.*",
-            "META-INF/NOTICE",
-            "META-INF/NOTICE.*",
-            "META-INF/notice.*",
-            "META-INF/ASL2.0",
-            "META-INF/*.kotlin_module",
-            "lib/x86/libc++_shared.so",
-            "lib/x86_64/libc++_shared.so",
-            "lib/armeabi-v7a/libc++_shared.so",
-            "lib/arm64-v8a/libc++_shared.so",
-            "lib/armeabi/libc++_shared.so",
-        ).let { resources.pickFirsts.addAll(it) }
-
-        listOf(
-            "com/**/*",
-            "frameworks/**/*",
-            "junit/**/*",
-            "LICENSE-junit.txt",
-            "spec.txt",
-            "EmojiReference.txt",
-        ).let { resources.excludes.addAll(it) }
-
-        if (gradle.startParameter.taskNames.any { it.contains(flavorNameInrt, true) }) {
-            listOf(
-                "**/prob_emit.txt", // Jieba Analysis (zh-CN: 结巴分词)
-                "**/dict-chinese-*.db.gzip", // Jieba Analysis (zh-CN: 结巴分词)
-            ).let { resources.excludes.addAll(it) }
+        resources {
+            pickFirsts.addAll(
+                listOf(
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/LICENSE",
+                    "META-INF/LICENSE.*",
+                    "META-INF/LICENSE-notice.*",
+                    "META-INF/license.*",
+                    "META-INF/NOTICE",
+                    "META-INF/NOTICE.*",
+                    "META-INF/notice.*",
+                    "META-INF/ASL2.0",
+                    "META-INF/*.kotlin_module",
+                    "lib/x86/libc++_shared.so",
+                    "lib/x86_64/libc++_shared.so",
+                    "lib/armeabi-v7a/libc++_shared.so",
+                    "lib/arm64-v8a/libc++_shared.so",
+                    "lib/armeabi/libc++_shared.so",
+                )
+            )
+            excludes.addAll(
+                listOf(
+                    "com/**/*",
+                    "frameworks/**/*",
+                    "junit/**/*",
+                    "LICENSE-junit.txt",
+                    "spec.txt",
+                    "EmojiReference.txt",
+                )
+            )
+            if (gradle.startParameter.taskNames.any { it.contains(flavorNameInrt, true) }) {
+                excludes.add("**/prob_emit.txt")
+                excludes.add("**/dict-chinese-*.db.gzip")
+            }
         }
-
         jniLibs {
-            // @Reference to kkevsekk1/AutoX (https://github.com/kkevsekk1/AutoX) by SuperMonster003 on Nov 16, 2023.
-            //  ! https://github.com/kkevsekk1/AutoX/blob/a6d482189291b460c3be60970b74c5321d26e457/inrt/build.gradle.kts#L91
-            excludes += "*"
+            excludes.add("*")
             useLegacyPackaging = true
         }
     }
@@ -660,7 +653,7 @@ android {
     signingConfigs {
         if (sign.isValid) {
             create(buildTypeRelease) {
-                storeFile = sign.properties["storeFile"]?.let { file(it as String) }
+                storeFile = sign.getStoreFile()
                 keyPassword = sign.properties["keyPassword"] as String
                 keyAlias = sign.properties["keyAlias"] as String
                 storePassword = sign.properties["storePassword"] as String
@@ -807,13 +800,25 @@ gradle.beforeProject {
 
 class Sign(filePath: String) {
 
+    fun getStoreFile(): File? {
+        return (properties["storeFile"] as? String)?.trim()?.let { File(rootDir, it) }
+    }
+
     var isValid = false
         private set
 
     val properties = Properties().also { props ->
         File(filePath).takeIf { it.exists() }?.let {
             props.load(FileInputStream(it))
-            isValid = props.isNotEmpty()
+            val storeFilePath = (props["storeFile"] as? String)?.trim()
+            val keyAlias = (props["keyAlias"] as? String)?.trim()
+            val storePassword = (props["storePassword"] as? String)?.trim()
+            val keyPassword = (props["keyPassword"] as? String)?.trim()
+            isValid = !storeFilePath.isNullOrBlank()
+                    && File(rootDir, storeFilePath).exists()
+                    && !keyAlias.isNullOrBlank()
+                    && !storePassword.isNullOrBlank()
+                    && !keyPassword.isNullOrBlank()
         }
     }
 
